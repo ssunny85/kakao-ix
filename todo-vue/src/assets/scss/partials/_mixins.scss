@@ -1,0 +1,28 @@
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+@mixin checkbox() {
+  content: '\2713';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  line-height: 1.0;
+  border: 2px solid $primary-color;
+  text-align: center;
+  vertical-align: top;
+  color: $white;
+  font-size: 20px;
+}
+
+@mixin blind() {
+  display: inline-block;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+}
