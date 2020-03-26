@@ -3,26 +3,42 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: Helvetica, Arial, sans-serif;
+  color: $default-color;
 }
 
 #app {
   height: 100%;
 }
 
-input[type='text'] {
-  display: block;
-  width: 100%;
+input[type='text'],
+select {
+  display: inline-block;
   height: 40px;
+  border: 1px solid $light-color;
+  background-color: $white;
+  font-size: 1rem;
+}
+
+input[type='text'] {
   padding: 10px;
   line-height: 40px;
-  border: 1px solid $light-color;
-  font-size: 1rem;
+  vertical-align: top;
   @include border-radius(4px);
+
+  select + & {
+    margin-left: 10px;
+  }
+
+  & + button {
+    margin-left: 10px;
+  }
 }
 
 .button {
-  min-width: 85px;
+  min-width: 90px;
   height: 40px;
+  padding: 0 10px;
+  box-sizing: border-box;
   line-height: 40px;
   font-weight: bold;
   background-color: $primary-color;
@@ -35,3 +51,39 @@ input[type='text'] {
   }
 }
 
+.checkbox {
+  display: inline-block;
+  position: relative;
+
+  input[type='checkbox'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $checkbox;
+    height: $checkbox;
+    opacity: 0;
+
+    & + label::before {
+      @include checkbox();
+    }
+
+    &:checked + label::before {
+      @include checkbox();
+      background-color: $primary-color;
+      color: $default-color;
+    }
+
+    &:focus + label::before {
+      outline: 3px solid #fcc419;
+    }
+  }
+
+  label {
+    display: block;
+    width: 100%;
+    padding-left: 30px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    line-height: 20px;
+  }
+}

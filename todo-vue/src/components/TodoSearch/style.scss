@@ -1,0 +1,25 @@
+.todo-search {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px dotted $light-color;
+
+  &__item {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    select {
+      min-width: 100px;
+    }
+
+    input[type='text'] {
+      flex: 1;
+    }
+  }
+
+  &--status {
+    margin-left: 20px;
+    align-self: center;
+  }
+
+}

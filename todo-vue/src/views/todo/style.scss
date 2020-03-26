@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  width: 500px;
+  width: 620px;
   height: 100%;
   margin: 0 auto;
 
@@ -15,54 +15,12 @@
   }
 
   &__inner {
-    padding: 30px;
-    box-sizing: border-box;
+    overflow: hidden;
     border-radius: 8px;
     box-shadow: 7px 7px 20px 5px rgba(0, 0, 0, .2);
   }
 
-  &__create {
-    position: relative;
-    margin-bottom: 30px;
-    padding-right: 90px;
-
-    .button {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+  &__board {
+    padding: 30px 30px 50px;
   }
-}
-
-.list-item {
-  display: flex;
-  margin: 20px 0;
-
-  &__label {
-    flex: 1;
-    margin-right: 15px;
-
-    input[type='checkbox'] {
-      @include blind();
-
-      & + label::before {
-        @include checkbox();
-      }
-
-      &:checked + label::before {
-        @include checkbox();
-        background-color: $primary-color;
-        color: $default-color;
-      }
-    }
-  }
-
-  &__info {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1.4;
-    cursor: pointer;
-  }
-
-  &__delete {}
 }

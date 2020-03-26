@@ -7,7 +7,9 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  margin-right: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
   line-height: 1.0;
   border: 2px solid $primary-color;

@@ -2,33 +2,33 @@
   <div class="todo">
     <h1 class="todo__title">TODO APP</h1>
     <div class="todo__inner">
-      <div class="todo__create">
-        <input type="text" />
-        <button type="button" class="button">Add</button>
+      <todo-create></todo-create>
+      <div class="todo__board">
+        <todo-search></todo-search>
+        <ul>
+          <li v-for="todo in todos" :key="todo.id">
+            <todo-item :todo="todo"></todo-item>
+          </li>
+        </ul>
+        <todo-pagination></todo-pagination>
       </div>
-      <ul class="todo__list">
-        <li
-          class="list-item"
-          v-for="todo in todos"
-          :key="todo.id">
-          <div class="list-item__label">
-            <input type="checkbox" id="todo-item1" />
-            <label class="list-item__info" for="todo-item1">
-              <strong>{{todo.label}}</strong>
-              <span>등록일: {{todo.createdOn}}</span>
-              <span>최종 수정일: {{todo.updatedOn}}</span>
-              <span>참조 Todo: {{todo.referenceId}}</span>
-            </label>
-          </div>
-          <button type="button" class="list-item__delete">Delete</button>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import TodoCreate from '@/components/TodoCreate/index.vue';
+import TodoSearch from '@/components/TodoSearch/index.vue';
+import TodoItem from '@/components/TodoItem/index.vue';
+import TodoPagination from '@/components/TodoPagination/index.vue';
+
 export default {
+  components: {
+    TodoCreate,
+    TodoSearch,
+    TodoItem,
+    TodoPagination,
+  },
   data() {
     return {
       todos: [

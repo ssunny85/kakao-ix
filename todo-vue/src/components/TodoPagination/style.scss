@@ -1,0 +1,15 @@
+.todo-pagination {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-top: 50px;
+
+  &__link {
+    margin: 0 3px;
+    padding: 0 5px;
+  }
+
+  button {
+    margin: 0 20px;
+  }
+}

@@ -1,0 +1,30 @@
+.list-item {
+  display: flex;
+  margin: 25px 0;
+
+  &__label {
+    position: relative;
+    flex: 1;
+    margin-right: 15px;
+  }
+
+  &__info {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.4;
+    cursor: pointer;
+
+    > span {
+      display: block;
+      font-size: 0.85rem;
+    }
+  }
+
+  &__title {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+
+  &__delete {}
+}
