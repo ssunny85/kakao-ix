@@ -2,10 +2,12 @@ const Todo = require('../model/Todo');
 
 const todoController = {
   list: (req, res, next) => {
-    Todo.find((err, todos) => {
-      if (err) return next(err);
-      res.json(todos);
-    });
+    Todo
+      .find((err, todos) => {
+        if (err) return next(err);
+        res.json(todos);
+      })
+      .sort({ id: -1 });
   },
   create: (req, res) => {
     const todo = new Todo(req.body);
