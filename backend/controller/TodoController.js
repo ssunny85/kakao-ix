@@ -7,15 +7,23 @@ const todoController = {
       res.json(todos);
     });
   },
-  create: (req, res, next) => {
+  create: (req, res) => {
     const todo = new Todo(req.body);
     todo.save()
       .then(() => {
-        res.json(todo);
+        res.status(201).end();
       })
       .catch((err) => {
-        console.log(`error: ${err}`);
+        res.status(500).send(err);
       });
+  },
+  delete: (req, res) => {
+    Todo.findOneAndDelete({ id: req.params.id }, (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.status(204).end();
+    });
   },
 };
 
