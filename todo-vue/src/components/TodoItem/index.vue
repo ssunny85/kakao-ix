@@ -5,9 +5,9 @@
         type="checkbox"
         :id="`todo-item-${todo.id}`" />
       <label class="list-item__info" :for="`todo-item-${todo.id}`">
-        <strong class="list-item__title">{{todo.label}}</strong>
-        <span class="list-item__created">등록일: {{todo.createdOn}}</span>
-        <span class="list-item__updated">최종 수정일: {{todo.updatedOn}}</span>
+        <strong class="list-item__title">{{todo.content}}</strong>
+        <span class="list-item__created">등록일: {{todo.createdAt}}</span>
+        <span class="list-item__updated">최종 수정일: {{todo.updatedAt}}</span>
         <span class="list-item__ref">참조 Todo: {{todo.referenceId}}</span>
       </label>
     </div>

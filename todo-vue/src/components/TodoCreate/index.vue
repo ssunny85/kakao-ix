@@ -3,7 +3,7 @@
     <div class="todo-create__inner">
       <input
         type="text"
-        v-model="item"
+        v-model="content"
         placeholder="할 일을 입력해주세요." />
       <button
         type="button"
@@ -16,15 +16,25 @@
 </template>
 
 <script>
+import TodoApi from '@/api/todo';
+
 export default {
   data() {
     return {
-      item: '',
+      content: '',
     };
   },
   methods: {
     handleAddItem() {
-      console.log('할일 추가!');
+      const request = {
+        content: this.content,
+      };
+      TodoApi.create(request)
+        .then(() => {
+          this.$emit('refresh-todo');
+          this.content = '';
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

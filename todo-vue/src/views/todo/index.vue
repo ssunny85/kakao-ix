@@ -2,7 +2,7 @@
   <div class="todo">
     <h1 class="todo__title">TODO APP</h1>
     <div class="todo__inner">
-      <todo-create></todo-create>
+      <todo-create @refresh-todo="refreshTodo"></todo-create>
       <div class="todo__board">
         <todo-search></todo-search>
         <ul>
@@ -21,6 +21,7 @@ import TodoCreate from '@/components/TodoCreate/index.vue';
 import TodoSearch from '@/components/TodoSearch/index.vue';
 import TodoItem from '@/components/TodoItem/index.vue';
 import TodoPagination from '@/components/TodoPagination/index.vue';
+import TodoApi from '@/api/todo';
 
 export default {
   components: {
@@ -31,30 +32,23 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          label: 'TODO item 1',
-          createdOn: '2020-02-28',
-          updatedOn: '2020-03-25',
-          referenceId: [],
-        },
-        {
-          id: 2,
-          label: 'TODO item 2',
-          createdOn: '2020-02-28',
-          updatedOn: '2020-03-25',
-          referenceId: [],
-        },
-        {
-          id: 3,
-          label: 'TODO item 3',
-          createdOn: '2020-02-28',
-          updatedOn: '2020-03-25',
-          referenceId: [],
-        },
-      ],
+      todos: [],
     };
+  },
+  created() {
+    this.initTodo();
+  },
+  methods: {
+    initTodo() {
+      TodoApi.list()
+        .then((res) => {
+          this.todos = res.data;
+        })
+        .catch((err) => console.log(err));
+    },
+    refreshTodo() {
+      this.initTodo();
+    },
   },
 };
 </script>
