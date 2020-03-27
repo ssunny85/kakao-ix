@@ -1,12 +1,30 @@
+const moment = require('moment');
 const Todo = require('../model/Todo');
 
 const todoController = {
   list: (req, res) => {
-    Todo
-      .find((err, todos) => {
+    const searchType = req.query.type;
+    const searchText = req.query.text;
+    const completed = req.query.completed;
+    const todo = Todo.find((err, todos) => {
         if (err) return res.status(500).send(err);
         res.json(todos);
-      })
+      });
+    if (searchType && searchText) {
+      switch (searchType) {
+        case 'content':
+          todo.regex(searchType, `.*${searchText}.*`);
+          break;
+        case 'createdAt':
+          todo.gte('createdAt', moment(searchText, 'YYYY-MM-DD').startOf('day').toDate().getTime());
+          todo.lte('createdAt', moment(searchText, 'YYYY-MM-DD').endOf('day').toDate().getTime());
+          break;
+      }
+    }
+    if (completed) {
+      todo.where('completed').equals(completed === 'true');
+    }
+    todo
       .sort({ id: -1 });
   },
   create: (req, res) => {
@@ -28,7 +46,11 @@ const todoController = {
     });
   },
   update: (req, res) => {
-    Todo.findOneAndUpdate({ id: req.params.id }, req.body, (err) => {
+    let requestData = {
+      ...req.body,
+      updatedAt: Date.now(),
+    };
+    Todo.findOneAndUpdate({ id: req.params.id }, requestData, (err) => {
       if (err) {
         res.status(500).send(err);
       }

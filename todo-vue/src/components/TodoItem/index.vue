@@ -50,11 +50,13 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    handleUpdate(id) {
-      TodoApi.update(id)
-        .then(() => {})
-        .catch((err) => console.log(err));
-    },
+    // handleUpdate(id) {
+    //   // TodoApi.update(id)
+    //   //   .then(() => {
+    //   //     this.$emit('refresh-todo');
+    //   //   })
+    //   //   .catch((err) => console.log(err));
+    // },
   },
 };
 </script>
