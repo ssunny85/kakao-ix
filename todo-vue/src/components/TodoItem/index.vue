@@ -15,8 +15,8 @@
       <button
         type="button"
         class="list-item__edit"
-        @click="handleEdit(todo.id)">
-        <delete-icon />
+        @click="handleUpdate(todo.id)">
+        수정
       </button>
       <button
         type="button"
@@ -44,11 +44,15 @@ export default {
   },
   methods: {
     handleDelete(id) {
-      console.log('id: ', id);
       TodoApi.delete(id)
         .then(() => {
           this.$emit('refresh-todo');
         })
+        .catch((err) => console.log(err));
+    },
+    handleUpdate(id) {
+      TodoApi.update(id)
+        .then(() => {})
         .catch((err) => console.log(err));
     },
   },

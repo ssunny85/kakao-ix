@@ -6,4 +6,5 @@ export default {
   create: (req) => axios.post(uri, req),
   list: () => axios.get(uri),
   delete: (id) => axios.delete(`${uri}/${id}`),
+  update: (id, req) => axios.patch(`${uri}/${id}`, req),
 };
