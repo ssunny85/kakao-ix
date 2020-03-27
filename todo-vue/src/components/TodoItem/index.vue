@@ -11,17 +11,26 @@
         <span class="list-item__ref">참조 Todo: {{todo.referenceId}}</span>
       </label>
     </div>
-    <button
-      type="button"
-      class="list-item__delete"
-      @click="handleDelete">
-      <delete-icon />
-    </button>
+    <div class="">
+      <button
+        type="button"
+        class="list-item__edit"
+        @click="handleEdit(todo.id)">
+        <delete-icon />
+      </button>
+      <button
+        type="button"
+        class="list-item__delete"
+        @click="handleDelete(todo.id)">
+        <delete-icon />
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+import TodoApi from '@/api/todo';
 
 export default {
   props: {
@@ -34,8 +43,13 @@ export default {
     DeleteIcon,
   },
   methods: {
-    handleDelete() {
-      console.log('삭제');
+    handleDelete(id) {
+      console.log('id: ', id);
+      TodoApi.delete(id)
+        .then(() => {
+          this.$emit('refresh-todo');
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

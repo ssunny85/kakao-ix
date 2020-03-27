@@ -6,8 +6,17 @@
       <div class="todo__board">
         <todo-search></todo-search>
         <ul>
-          <li v-for="todo in todos" :key="todo.id">
-            <todo-item :todo="todo"></todo-item>
+          <li v-if="todos.length === 0" class="no-data">
+            데이터가 없습니다.
+          </li>
+          <li v-else>
+            <template v-for="todo in todos">
+              <todo-item
+                :todo="todo"
+                :key="todo.id"
+                @refresh-todo="refreshTodo">
+              </todo-item>
+            </template>
           </li>
         </ul>
         <todo-pagination></todo-pagination>
