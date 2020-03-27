@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 
-const Todo = new mongoose.Schema({
-  id: Number,
+const TodoSchema = new mongoose.Schema({
+  id: {type: Number, default: 1, unique: true},
   content: String,
   completed: Boolean,
   referenceId: [Number],
@@ -9,4 +10,11 @@ const Todo = new mongoose.Schema({
   updatedAt: {type: Date, default: Date.now},
 });
 
-module.exports = mongoose.model('Todo', Todo);
+autoIncrement.initialize(mongoose.connection);
+TodoSchema.plugin(autoIncrement.plugin, {
+  model: 'Todo',
+  field: 'id',
+  startAt: 1,
+  increment: 1,
+});
+module.exports = mongoose.model('Todo', TodoSchema);

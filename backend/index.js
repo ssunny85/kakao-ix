@@ -7,7 +7,7 @@ const port = 8080;
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost:27017/local')
+mongoose.connect('mongodb://localhost:27017/todo')
   .then(() => console.log('connected successful'))
   .catch((err) => console.log(err));
 
