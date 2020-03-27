@@ -5,10 +5,10 @@
         type="checkbox"
         :id="`todo-item-${todo.id}`" />
       <label class="list-item__info" :for="`todo-item-${todo.id}`">
-        <strong class="list-item__title">{{todo.content}}</strong>
-        <span class="list-item__created">등록일: {{todo.createdAt}}</span>
-        <span class="list-item__updated">최종 수정일: {{todo.updatedAt}}</span>
-        <span class="list-item__ref">참조 Todo: {{todo.referenceId}}</span>
+        <strong class="list-item__title">{{ todo.content }}</strong>
+        <span class="list-item__created">등록일: {{ todo.createdAt | formatDate }}</span>
+        <span class="list-item__updated">최종 수정일: {{ todo.updatedAt | formatDate }}</span>
+        <span class="list-item__ref">참조 Todo: {{ todo.referenceId }}</span>
       </label>
     </div>
     <div class="">
@@ -31,6 +31,7 @@
 <script>
 import DeleteIcon from 'vue-material-design-icons/Delete.vue';
 import TodoApi from '@/api/todo';
+import moment from 'moment';
 
 export default {
   props: {
@@ -41,6 +42,9 @@ export default {
   },
   components: {
     DeleteIcon,
+  },
+  filters: {
+    formatDate: (date) => moment(date).format('YYYY-MM-DD'),
   },
   methods: {
     handleDelete(id) {
