@@ -4,7 +4,8 @@
       <input
         type="text"
         v-model="content"
-        placeholder="할 일을 입력해주세요." />
+        placeholder="할 일을 입력해주세요."
+        @keyup.enter="handleAddItem" />
       <button
         type="button"
         class="button"

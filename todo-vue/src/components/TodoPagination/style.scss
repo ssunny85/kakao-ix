@@ -6,12 +6,16 @@
   padding-top: 30px;
   border-top: 1px dotted $light-color;
 
+  &__prev,
+  &__next,
   &__link {
-    margin: 0 3px;
+    margin: 0 5px;
     padding: 0 5px;
+    color: $page-default;
   }
 
-  button {
-    margin: 0 20px;
+  &--current {
+    color: $page-primary;
+    font-weight: bold;
   }
 }

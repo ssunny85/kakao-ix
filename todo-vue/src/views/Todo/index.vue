@@ -19,7 +19,10 @@
             </template>
           </li>
         </ul>
-        <todo-pagination></todo-pagination>
+        <todo-pagination
+          :paging="paging"
+          @refresh-todo="refreshTodo">
+        </todo-pagination>
       </div>
     </div>
   </div>
@@ -41,6 +44,7 @@ export default {
   },
   data() {
     return {
+      paging: {},
       todos: [],
     };
   },
@@ -48,15 +52,20 @@ export default {
     this.initTodo();
   },
   methods: {
-    initTodo() {
-      TodoApi.list()
-        .then((res) => {
-          this.todos = res.data;
+    getTodos(pageNo) {
+      TodoApi.list(pageNo)
+        .then(({ data }) => {
+          this.todos = data.todos;
+          this.paging = data.paging;
         })
         .catch((err) => console.log(err));
     },
-    refreshTodo() {
-      this.initTodo();
+    initTodo() {
+      this.getTodos(1);
+    },
+    refreshTodo(pageNo) {
+      console.log(pageNo);
+      this.getTodos(pageNo);
     },
   },
 };

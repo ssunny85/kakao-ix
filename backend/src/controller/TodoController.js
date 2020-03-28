@@ -39,7 +39,16 @@ const todoController = {
           limit: pageLimit,
           total: totalCount,
         },
-        todos,
+        todos: todos.map(todo => {
+          return {
+            id: todo.id,
+            content: todo.content,
+            completed: todo.completed,
+            createdAt: todo.createdAt,
+            updatedAt: todo.updatedAt,
+            referenceIds: todo.referenceIds,
+          };
+        }),
       };
 
       return res.json(result);
