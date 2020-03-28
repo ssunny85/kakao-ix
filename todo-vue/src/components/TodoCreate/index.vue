@@ -9,6 +9,7 @@
       <button
         type="button"
         class="button"
+        :disabled="!content"
         @click="handleAddItem">
         추가
       </button>

@@ -24,10 +24,6 @@ input[type='text'] {
   vertical-align: top;
   @include border-radius(4px);
 
-  select + & {
-    margin-left: 10px;
-  }
-
   & + button {
     margin-left: 10px;
   }
@@ -47,6 +43,11 @@ input[type='text'] {
   &:hover,
   &:focus {
     background-color: lighten($primary-color, 20%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
   }
 }
 
@@ -90,4 +91,8 @@ input[type='text'] {
 .no-data {
   padding: 20px 10px;
   text-align: center;
+}
+
+.blind {
+  @include blind();
 }

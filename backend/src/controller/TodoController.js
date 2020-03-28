@@ -9,25 +9,27 @@ const todoController = {
     const pageNo = parseInt(req.query.pageNo, 10) || 1;
     const pageLimit = 3;
 
-    if (searchType && searchText) {
-      switch (searchType) {
-        case 'content':
-          Todo.regex(searchType, `.*${searchText}.*`);
-          break;
-        case 'createdAt':
-          Todo.gte('createdAt', moment(searchText, 'YYYY-MM-DD').startOf('day').toDate().getTime());
-          Todo.lte('createdAt', moment(searchText, 'YYYY-MM-DD').endOf('day').toDate().getTime());
-          break;
+    const queryWithCondition = (query) => {
+      if (searchType && searchText) {
+        switch (searchType) {
+          case 'content':
+            query.regex(searchType, `.*${searchText}.*`);
+            break;
+          case 'createdAt':
+            query.gte('createdAt', moment(searchText, 'YYYY-MM-DD').startOf('day').toDate().getTime());
+            query.lte('createdAt', moment(searchText, 'YYYY-MM-DD').endOf('day').toDate().getTime());
+            break;
+        }
       }
-    }
-    if (completed) {
-      Todo.where('completed').equals(completed === 'true');
-    }
+      if (completed) {
+        query.where('completed').equals(completed === 'true');
+      }
+      return query;
+    };
 
     try {
-      const totalCount = await Todo.count();
-      const todos = await Todo
-        .find()
+      const totalCount = await queryWithCondition(Todo.count());
+      const todos = await queryWithCondition(Todo.find())
         .limit(pageLimit)
         .skip(pageLimit * (pageNo - 1))
         .sort({id: -1})

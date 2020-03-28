@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     handlePage(pageNo) {
-      this.$emit('refresh-todo', pageNo);
+      this.$emit('page-todo', pageNo);
     },
   },
 };

@@ -4,7 +4,11 @@
     <div class="todo__inner">
       <todo-create @refresh-todo="refreshTodo"></todo-create>
       <div class="todo__board">
-        <todo-search></todo-search>
+        <todo-search
+          ref="search"
+          :condition="condition"
+          @search-todo="searchTodo">
+        </todo-search>
         <ul>
           <li v-if="todos.length === 0" class="no-data">
             데이터가 없습니다.
@@ -21,7 +25,7 @@
         </ul>
         <todo-pagination
           :paging="paging"
-          @refresh-todo="refreshTodo">
+          @page-todo="pageTodo">
         </todo-pagination>
       </div>
     </div>
@@ -44,6 +48,7 @@ export default {
   },
   data() {
     return {
+      condition: {},
       paging: {},
       todos: [],
     };
@@ -52,8 +57,8 @@ export default {
     this.initTodo();
   },
   methods: {
-    getTodos(pageNo) {
-      TodoApi.list(pageNo)
+    getTodos(requestData) {
+      TodoApi.list(requestData)
         .then(({ data }) => {
           this.todos = data.todos;
           this.paging = data.paging;
@@ -61,11 +66,41 @@ export default {
         .catch((err) => console.log(err));
     },
     initTodo() {
-      this.getTodos(1);
+      const requestData = {
+        condition: {},
+        paging: {
+          no: 1,
+        },
+      };
+      this.getTodos(requestData);
     },
-    refreshTodo(pageNo) {
-      console.log(pageNo);
-      this.getTodos(pageNo);
+    searchTodo(data) {
+      this.condition = { ...data };
+      const requestData = {
+        condition: {
+          ...data,
+        },
+        paging: {
+          no: 1,
+        },
+      };
+      console.log('requestData: ', requestData);
+      this.getTodos(requestData);
+    },
+    pageTodo(pageNo) {
+      const requestData = {
+        condition: { ...this.condition },
+        paging: {
+          no: pageNo,
+        },
+      };
+      console.log('requestData: ', requestData);
+      this.getTodos(requestData);
+    },
+    refreshTodo() {
+      this.initTodo();
+      this.condition = {};
+      this.$refs.search.init();
     },
   },
 };
