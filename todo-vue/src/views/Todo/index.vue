@@ -1,6 +1,5 @@
 <template>
   <div class="todo">
-    <h1 class="todo__title">TODO APP</h1>
     <div class="todo__inner">
       <todo-create @refresh-todo="refreshTodo"></todo-create>
       <div class="todo__board">
@@ -84,7 +83,6 @@ export default {
           no: 1,
         },
       };
-      console.log('requestData: ', requestData);
       this.getTodos(requestData);
     },
     pageTodo(pageNo) {
@@ -94,7 +92,6 @@ export default {
           no: pageNo,
         },
       };
-      console.log('requestData: ', requestData);
       this.getTodos(requestData);
     },
     refreshTodo() {

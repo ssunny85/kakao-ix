@@ -11,6 +11,10 @@ export default {
     htmlAttrs: {
       lang: 'ko',
     },
+    meta: [
+      { vmid: 'keywords', name: 'keywords', content: '' },
+      { vmid: 'description', name: 'description', content: '' },
+    ],
   },
 };
 </script>

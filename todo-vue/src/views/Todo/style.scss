@@ -6,21 +6,17 @@
   width: 620px;
   height: 100%;
   margin: 0 auto;
-
-  &__title {
-    margin-bottom: 40px;
-    text-align: center;
-    font-size: 40px;
-    color: $primary-color;
-  }
+  padding: 0 40px;
+  box-sizing: border-box;
 
   &__inner {
     overflow: hidden;
+    margin-top: 50px;
     border-radius: 8px;
     box-shadow: 7px 7px 20px 5px rgba(0, 0, 0, .2);
   }
 
   &__board {
-    padding: 30px 30px 50px;
+    padding-bottom: 50px;
   }
 }

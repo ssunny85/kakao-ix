@@ -21,8 +21,8 @@ const todoController = {
             break;
         }
       }
-      if (completed) {
-        query.where('completed').equals(completed === 'true');
+      if (completed === 'true') {
+        query.where('completed').equals(true);
       }
       return query;
     };
