@@ -18,6 +18,7 @@
           v-if="isUpdate"
           v-model="content" />
         <strong v-else class="list-item__title">{{ todo.content }}</strong>
+        <span class="list-item__id">ID: {{ todo.id }}</span>
         <span class="list-item__created">등록일: {{ todo.createdAt | formatDate }}</span>
         <span class="list-item__updated">최종 수정일: {{ todo.updatedAt | formatDate }}</span>
         <input
@@ -33,7 +34,7 @@
         type="button"
         class="button small"
         v-if="!todo.completed && !isUpdate"
-        @click="handleUpdate()">
+        @click="handleUpdate">
         수정
       </button>
       <button
@@ -42,6 +43,13 @@
         v-if="isUpdate"
         @click="handleSubmit(todo.id)">
         확인
+      </button>
+      <button
+        type="button"
+        class="button small"
+        v-if="isUpdate"
+        @click="handleCancel">
+        취소
       </button>
       <button
         type="button"
@@ -68,7 +76,7 @@ export default {
     return {
       completed: this.todo.completed,
       content: this.todo.content,
-      referenceId: '',
+      referenceId: this.todo.referenceIds,
       isUpdate: false,
     };
   },
@@ -77,10 +85,18 @@ export default {
   },
   computed: {
     referenceIds() {
-      return this.todo.referenceIds.map((id) => `@${id}`).join(', ');
+      const ids = this.converterReferenceIds(this.todo.referenceIds);
+      return ids.map((id) => `@${id}`).join(', ');
     },
   },
   methods: {
+    converterReferenceIds(ids) {
+      let referenceIds = Array.from(ids.replace(/[^0-9]/g, ''));
+      referenceIds = referenceIds
+        .filter((item, index) => referenceIds.indexOf(item) === index)
+        .map((item) => parseInt(item, 10));
+      return referenceIds;
+    },
     handleDelete(id) {
       TodoApi.delete(id)
         .then(() => {
@@ -92,10 +108,7 @@ export default {
       this.isUpdate = true;
     },
     handleSubmit(id) {
-      let referenceIds = Array.from(this.referenceId.replace(/[^0-9]/g, ''));
-      referenceIds = referenceIds
-        .filter((item, index) => referenceIds.indexOf(item) === index)
-        .map((item) => parseInt(item, 10));
+      const referenceIds = this.converterReferenceIds(this.referenceId);
       const requestData = {
         completed: this.completed,
         content: this.content,
@@ -107,6 +120,12 @@ export default {
           this.isUpdate = false;
         })
         .catch((err) => console.log(err));
+    },
+    handleCancel() {
+      this.completed = this.todo.completed;
+      this.content = this.todo.content;
+      this.referenceId = this.todo.referenceIds;
+      this.isUpdate = this.todo.completed;
     },
     handleCompleted(id) {
       this.handleSubmit(id);

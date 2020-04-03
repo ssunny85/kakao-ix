@@ -59,7 +59,10 @@ export default {
     getTodos(requestData) {
       TodoApi.list(requestData)
         .then(({ data }) => {
-          this.todos = data.todos;
+          this.todos = data.todos.map((todo) => ({
+            ...todo,
+            referenceIds: todo.referenceIds.join(', '),
+          }));
           this.paging = data.paging;
         })
         .catch((err) => console.log(err));
