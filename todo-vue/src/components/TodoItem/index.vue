@@ -10,16 +10,22 @@
         maxlength="200"
         :id="`todo-item-${todo.id}`"
         :disabled="isUpdate"
-        @change="handleCompleted(todo.id)"/>
+        @change="handleCompleted(todo.id)" />
       <label class="list-item__info" :for="`todo-item-${todo.id}`">
         <input
           type="text"
+          class="todo-content-update"
           v-if="isUpdate"
           v-model="content" />
         <strong v-else class="list-item__title">{{ todo.content }}</strong>
         <span class="list-item__created">등록일: {{ todo.createdAt | formatDate }}</span>
         <span class="list-item__updated">최종 수정일: {{ todo.updatedAt | formatDate }}</span>
-        <span class="list-item__ref">참조 Todo: {{ referenceIds }}</span>
+        <input
+          type="text"
+          v-if="isUpdate"
+          v-model="referenceId"
+          placeholder="참조 Todo id 입력 (예: 1, 2)" />
+        <span v-else class="list-item__ref">참조 Todo: {{ referenceIds }}</span>
       </label>
     </div>
     <div class="list-item__button">
@@ -62,6 +68,7 @@ export default {
     return {
       completed: this.todo.completed,
       content: this.todo.content,
+      referenceId: '',
       isUpdate: false,
     };
   },
@@ -85,13 +92,18 @@ export default {
       this.isUpdate = true;
     },
     handleSubmit(id) {
+      let referenceIds = Array.from(this.referenceId.replace(/[^0-9]/g, ''));
+      referenceIds = referenceIds
+        .filter((item, index) => referenceIds.indexOf(item) === index)
+        .map((item) => parseInt(item, 10));
       const requestData = {
         completed: this.completed,
         content: this.content,
+        referenceIds,
       };
       TodoApi.update(id, requestData)
         .then(() => {
-          this.$emit('refresh-todo');
+          this.$emit('update-todo', requestData);
           this.isUpdate = false;
         })
         .catch((err) => console.log(err));

@@ -17,7 +17,7 @@
               <todo-item
                 :todo="todo"
                 :key="todo.id"
-                @refresh-todo="refreshTodo">
+                @update-todo="updateTodo">
               </todo-item>
             </template>
           </li>
@@ -79,6 +79,15 @@ export default {
         condition: {
           ...data,
         },
+        paging: {
+          no: 1,
+        },
+      };
+      this.getTodos(requestData);
+    },
+    updateTodo(request) {
+      const requestData = {
+        condition: { ...request },
         paging: {
           no: 1,
         },

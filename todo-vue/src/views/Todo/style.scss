@@ -6,12 +6,11 @@
   width: 620px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 40px;
   box-sizing: border-box;
 
   &__inner {
     overflow: hidden;
-    margin-top: 50px;
     border-radius: 8px;
     box-shadow: 7px 7px 20px 5px rgba(0, 0, 0, .2);
   }
