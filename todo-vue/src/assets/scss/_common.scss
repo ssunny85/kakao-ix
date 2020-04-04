@@ -115,3 +115,17 @@ input[type='text'] {
 .blind {
   @include blind();
 }
+
+.toasted-container {
+  &.toast-wrap {
+    .toasted {
+      margin-top: 0;
+      padding: 12px 20px;
+      background-color: $primary-color;
+      color: $default-color;
+      font-weight: bold;
+      @include border-radius(5px);
+      @include box-shadow(0 2px 4px 0 $light-color);
+    }
+  }
+}

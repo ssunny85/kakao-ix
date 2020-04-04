@@ -76,12 +76,39 @@ const todoController = {
       res.status(204).end();
     });
   },
-  update: (req, res) => {
+  update: async (req, res) => {
     let requestData = {
       ...req.body,
       updatedAt: Date.now(),
     };
-    Todo.findOneAndUpdate({ id: req.params.id }, requestData, (err) => {
+    const reqId = parseInt(req.params.id, 10);
+    if (req.body.referenceIds.includes(reqId)) {
+      res.status(500).json({
+        errorMsg: '자신의 ID를 참조 ID로 추가할 수 없습니다. ID를 확인해주세요.',
+      });
+      return;
+    }
+    const todos = await Todo.find().where('id').in(req.body.referenceIds);
+    if (req.body.referenceIds.length !== todos.length) {
+      res.status(500).json({
+        errorMsg: '존재하지 않는 ID에 대한 요청이 있습니다. ID를 확인해주세요.',
+      });
+      return;
+    }
+    if (req.body.completed && !todos.every((todo) => todo.completed)) {
+      res.status(500).json({
+        errorMsg: '참조하고 있는 Todo ID 모두 완료 상태가 아니라면 Todo를 완료할 수 없습니다.',
+      });
+      return;
+    }
+    const referenceTodos = await Todo.find().where('referenceIds').in(reqId);
+    if (referenceTodos.length > 0 && referenceTodos.some((todo) => todo.completed)) {
+      res.status(500).json({
+        errorMsg: '참조하고 있는 완료 된 Todo가 있습니다.',
+      });
+      return;
+    }
+    Todo.findOneAndUpdate({ id: req.params.id }, requestData,(err) => {
       if (err) {
         res.status(500).send(err);
       }

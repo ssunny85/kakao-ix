@@ -85,17 +85,37 @@ export default {
   },
   computed: {
     referenceIds() {
-      const ids = this.converterReferenceIds(this.todo.referenceIds);
+      const ids = this.convertReferenceIds(this.todo.referenceIds);
       return ids.map((id) => `@${id}`).join(', ');
     },
   },
+  watch: {
+    todo: {
+      deep: true,
+      handler(value) {
+        this.completed = value.completed;
+        this.content = value.content;
+        this.referenceId = value.referenceIds;
+      },
+    },
+  },
   methods: {
-    converterReferenceIds(ids) {
-      let referenceIds = Array.from(ids.replace(/[^0-9]/g, ''));
+    convertReferenceIds(ids) {
+      let referenceIds = ids
+        .split(',')
+        .map((id) => parseInt(id.trim(), 10));
       referenceIds = referenceIds
         .filter((item, index) => referenceIds.indexOf(item) === index)
-        .map((item) => parseInt(item, 10));
+        .sort();
       return referenceIds;
+    },
+    checkValidate() {
+      const regex = /^[0-9, ]*$/g;
+      if (!regex.test(this.referenceId)) {
+        this.$toasted.show('참조 TODO 형식이 잘못되었습니다.');
+        return false;
+      }
+      return true;
     },
     handleDelete(id) {
       TodoApi.delete(id)
@@ -107,19 +127,23 @@ export default {
     handleUpdate() {
       this.isUpdate = true;
     },
-    handleSubmit(id) {
-      const referenceIds = this.converterReferenceIds(this.referenceId);
+    async handleSubmit(id) {
+      if (!this.checkValidate()) return false;
+      const referenceIds = this.convertReferenceIds(this.referenceId);
       const requestData = {
         completed: this.completed,
         content: this.content,
         referenceIds,
       };
-      TodoApi.update(id, requestData)
-        .then(() => {
-          this.$emit('update-todo', requestData);
-          this.isUpdate = false;
-        })
-        .catch((err) => console.log(err));
+      try {
+        await TodoApi.update(id, requestData);
+        this.$emit('update-todo');
+        this.isUpdate = false;
+      } catch (err) {
+        this.$toasted.show(err.response.data.errorMsg);
+        return false;
+      }
+      return true;
     },
     handleCancel() {
       this.completed = this.todo.completed;
@@ -127,8 +151,9 @@ export default {
       this.referenceId = this.todo.referenceIds;
       this.isUpdate = this.todo.completed;
     },
-    handleCompleted(id) {
-      this.handleSubmit(id);
+    async handleCompleted(id) {
+      const success = await this.handleSubmit(id);
+      if (!success) this.completed = !this.completed;
     },
   },
 };

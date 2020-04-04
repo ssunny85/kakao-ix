@@ -88,20 +88,20 @@ export default {
       };
       this.getTodos(requestData);
     },
-    updateTodo(request) {
-      const requestData = {
-        condition: { ...request },
-        paging: {
-          no: 1,
-        },
-      };
-      this.getTodos(requestData);
-    },
     pageTodo(pageNo) {
       const requestData = {
         condition: { ...this.condition },
         paging: {
           no: pageNo,
+        },
+      };
+      this.getTodos(requestData);
+    },
+    updateTodo() {
+      const requestData = {
+        condition: { ...this.condition },
+        paging: {
+          no: this.paging.no,
         },
       };
       this.getTodos(requestData);
