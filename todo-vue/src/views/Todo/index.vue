@@ -65,7 +65,7 @@ export default {
           }));
           this.paging = data.paging;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$toasted.show(err.response.data.errorMsg));
     },
     initTodo() {
       const requestData = {

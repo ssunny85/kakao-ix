@@ -123,7 +123,7 @@ export default {
         .then(() => {
           this.$emit('refresh-todo');
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$toasted.show(err.response.data.errorMsg));
     },
     handleUpdate() {
       this.isUpdate = true;

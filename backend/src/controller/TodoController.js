@@ -55,7 +55,10 @@ const todoController = {
 
       return res.json(result);
     } catch (err) {
-      return res.status(500).send(err);
+      console.log(err);
+      return res.status(500).json({
+        errorMsg: '목록 불러오기에 실패했습니다.',
+      });
     }
   },
   create: (req, res) => {
@@ -65,13 +68,19 @@ const todoController = {
         res.status(201).end();
       })
       .catch((err) => {
-        res.status(500).send(err);
+        console.log(err);
+        res.status(500).json({
+          errorMsg: '생성에 실패했습니다.',
+        });
       });
   },
   delete: (req, res) => {
     Todo.findOneAndDelete({ id: req.params.id }, (err) => {
       if (err) {
-        res.status(500).send(err);
+        console.log(err);
+        res.status(500).json({
+          errorMsg: '삭제에 실패했습니다.',
+        });
       }
       res.status(204).end();
     });
@@ -110,7 +119,10 @@ const todoController = {
     }
     Todo.findOneAndUpdate({ id: req.params.id }, requestData,(err) => {
       if (err) {
-        res.status(500).send(err);
+        console.log(err);
+        res.status(500).json({
+          errorMsg: '수정에 실패했습니다.',
+        });
       }
       res.status(204).end();
     });

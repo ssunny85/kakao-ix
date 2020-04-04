@@ -36,7 +36,7 @@ export default {
           this.$emit('refresh-todo');
           this.content = '';
         })
-        .catch((err) => console.log(err));
+        .catch((err) => this.$toasted.show(err.response.data.errorMsg));
     },
   },
 };
