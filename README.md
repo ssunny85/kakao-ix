@@ -16,7 +16,7 @@ $ brew install mongodb-community
 ```shell script
 $ cd backend
 $ npm install
-$ npm serve
+$ npm run serve
 ```
 
 ### Front Vue 구동
@@ -24,7 +24,7 @@ $ npm serve
 ```shell script
 $ cd todo-vue
 $ npm install
-$ npm serve
+$ npm run serve
 ```
 
 ### Front React 구동
@@ -32,7 +32,12 @@ $ npm serve
 ```shell script
 $ cd todo-react
 $ npm install
-$ npm serve
+$ npm run serve
 ```
 
-### 단위테스트
+### Front 단위테스트
+
+```shell script
+$ cd todo-vue
+$ npm run test:unit
+```
