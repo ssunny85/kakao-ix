@@ -17,6 +17,9 @@ describe('TodoItem.vue', () => {
       propsData: {
         todo,
       },
+      mocks: {
+        $toasted: {},
+      },
     });
   });
 
@@ -52,6 +55,26 @@ describe('TodoItem.vue', () => {
     // then
     expect(wrapper.emitted()['update-todo'][0]).toEqual([]);
     expect(wrapper.vm.isUpdate).toBeFalsy();
+  });
+
+  it('method handleSubmit 실패 시 테스트', async () => {
+    // given
+    TodoApi.update = jest.fn().mockRejectedValue({
+      response: {
+        data: {
+          errorMsg: '에러',
+        },
+      },
+    });
+    wrapper.vm.$toasted.show = jest.fn();
+
+    // when
+    const result = await wrapper.vm.handleSubmit();
+    await wrapper.vm.$nextTick();
+
+    // then
+    expect(wrapper.vm.$toasted.show).toBeCalled();
+    expect(result).toBeFalsy();
   });
 
   it('method handleUpdate 테스트', () => {
