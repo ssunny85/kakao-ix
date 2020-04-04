@@ -1,7 +1,11 @@
-.list-item {
+.todo-item {
   $parent: &;
   display: flex;
   padding: 25px 30px;
+
+  & + & {
+    border-top: 1px solid $light-color;
+  }
 
   &--completed {
     background-color: rgba($primary-color, 0.2);
@@ -38,6 +42,10 @@
 
     > input[type='text'] {
       width: 100%;
+    }
+
+    em {
+      font-style: normal;
     }
 
     .todo-content-update {

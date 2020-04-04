@@ -1,35 +1,36 @@
 <template>
   <div
-    class="list-item"
-    :class="{'list-item--completed': todo.completed}">
-    <div class="list-item__label checkbox">
+    class="todo-item"
+    :class="{'todo-item--completed': todo.completed}">
+    <div class="todo-item__label checkbox">
       <input
         type="checkbox"
+        class="todo-item__completed"
         v-model="completed"
         minlength="1"
         maxlength="200"
         :id="`todo-item-${todo.id}`"
         :disabled="isUpdate"
         @change="handleCompleted(todo.id)" />
-      <label class="list-item__info" :for="`todo-item-${todo.id}`">
+      <label class="todo-item__info" :for="`todo-item-${todo.id}`">
         <input
           type="text"
           class="todo-content-update"
           v-if="isUpdate"
           v-model="content" />
-        <strong v-else class="list-item__title">{{ todo.content }}</strong>
-        <span class="list-item__id">ID: {{ todo.id }}</span>
-        <span class="list-item__created">등록일: {{ todo.createdAt | formatDate }}</span>
-        <span class="list-item__updated">최종 수정일: {{ todo.updatedAt | formatDate }}</span>
+        <strong v-else class="todo-item__title">{{ todo.content }}</strong>
+        <span class="todo-item__id">ID: <em>{{ todo.id }}</em></span>
+        <span class="todo-item__created">등록일: <em>{{ todo.createdAt | formatDate }}</em></span>
+        <span class="todo-item__updated">최종 수정일: <em>{{ todo.updatedAt | formatDate }}</em></span>
         <input
           type="text"
           v-if="isUpdate"
           v-model="referenceId"
           placeholder="참조 Todo id 입력 (예: 1, 2)" />
-        <span v-else class="list-item__ref">참조 Todo: {{ referenceIds }}</span>
+        <span v-else class="todo-item__ref">참조 Todo: <em>{{ referenceIds }}</em></span>
       </label>
     </div>
-    <div class="list-item__button">
+    <div class="todo-item__button">
       <button
         type="button"
         class="button small"
