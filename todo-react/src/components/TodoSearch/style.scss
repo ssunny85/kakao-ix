@@ -1,0 +1,26 @@
+@import 'src/assets/scss/partials/_variables.scss';
+
+.todo-search {
+  padding: 30px;
+  border-bottom: 1px solid $light-color;
+
+  &__item {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    select {
+      min-width: 100px;
+      margin-right: 10px;
+    }
+
+    input[type='text'] {
+      flex: 1;
+    }
+  }
+
+  &--status {
+    margin-left: 20px;
+    align-self: center;
+  }
+}

@@ -1,0 +1,132 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  color: $default-color;
+}
+
+input[type='text'],
+select {
+  display: inline-block;
+  height: 40px;
+  border: 1px solid $light-color;
+  background-color: $white;
+  font-size: 1rem;
+}
+
+input[type='text'] {
+  padding: 10px;
+  line-height: 40px;
+  vertical-align: top;
+  @include border-radius(4px);
+
+  & + button {
+    margin-left: 10px;
+  }
+}
+
+.button {
+  min-width: 90px;
+  height: 40px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  line-height: 40px;
+  font-weight: bold;
+  background-color: $primary-color;
+  transition: background-color .4s;
+  @include border-radius(4px);
+
+  &:hover,
+  &:focus {
+    background-color: lighten($primary-color, 20%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+
+  &.small {
+    display: block;
+    min-width: 50px;
+    height: 26px;
+    line-height: 26px;
+    font-weight: normal;
+    font-size: 0.85rem;
+    background-color: $white;
+    border: 1px solid $primary-color;
+
+    &:hover,
+    &:focus {
+      background-color: $primary-color;
+    }
+
+    & + & {
+      margin: 5px 0;
+    }
+  }
+}
+
+.checkbox {
+  display: inline-block;
+  position: relative;
+
+  input[type='checkbox'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $checkbox;
+    height: $checkbox;
+    opacity: 0;
+
+    & + label::before {
+      @include checkbox();
+    }
+
+    &:checked + label::before {
+      @include checkbox();
+      background-color: $primary-color;
+      color: $default-color;
+    }
+
+    &:focus + label::before {
+      outline: 3px solid #fcc419;
+    }
+
+    &:disabled + label::before {
+      opacity: 0.5;
+    }
+  }
+
+  label {
+    display: block;
+    width: 100%;
+    padding-left: 30px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    line-height: 20px;
+  }
+}
+
+.no-data {
+  padding: 50px 10px;
+  text-align: center;
+}
+
+.blind {
+  @include blind();
+}
+
+.toasted-container {
+  &.toast-wrap {
+    .toasted {
+      margin-top: 0;
+      padding: 12px 20px;
+      background-color: $primary-color;
+      color: $default-color;
+      font-weight: bold;
+      @include border-radius(5px);
+      @include box-shadow(0 2px 4px 0 $light-color);
+    }
+  }
+}

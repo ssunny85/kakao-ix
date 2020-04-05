@@ -1,0 +1,22 @@
+@import 'src/assets/scss/partials/_variables.scss';
+
+.todo-pagination {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding-top: 30px;
+  border-top: 1px solid $light-color;
+
+  &__prev,
+  &__next,
+  &__link {
+    margin: 0 5px;
+    padding: 0 5px;
+    color: $page-default;
+  }
+
+  &--current {
+    color: $page-primary;
+    font-weight: bold;
+  }
+}

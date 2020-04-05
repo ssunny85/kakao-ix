@@ -1,0 +1,29 @@
+@import 'src/assets/scss/partials/_variables.scss';
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 620px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  box-sizing: border-box;
+
+  &__inner {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 7px 7px 20px 5px rgba(0, 0, 0, .2);
+  }
+
+  &__board {
+    padding-bottom: 50px;
+  }
+
+  &__list__item {
+    & + & {
+      border-top: 1px dotted $light-color;
+    }
+  }
+}
