@@ -50,7 +50,7 @@ describe('TodoItem.vue', () => {
     TodoApi.update = jest.fn().mockResolvedValue({});
 
     // when
-    wrapper.vm.handleSubmit();
+    await wrapper.vm.handleSubmit();
     await wrapper.vm.$nextTick();
     const result = wrapper.emitted()['update-todo'][0];
 
