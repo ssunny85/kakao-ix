@@ -39,9 +39,10 @@ describe('TodoItem.vue', () => {
     // when
     wrapper.vm.handleDelete();
     await wrapper.vm.$nextTick();
+    const result = wrapper.emitted()['refresh-todo'][0];
 
     // then
-    expect(wrapper.emitted()['refresh-todo'][0]).toEqual([]);
+    expect(result).toEqual([]);
   });
 
   it('method handleSubmit 성공 시 테스트', async () => {
@@ -51,9 +52,10 @@ describe('TodoItem.vue', () => {
     // when
     wrapper.vm.handleSubmit();
     await wrapper.vm.$nextTick();
+    const result = wrapper.emitted()['update-todo'][0];
 
     // then
-    expect(wrapper.emitted()['update-todo'][0]).toEqual([]);
+    expect(result).toEqual([]);
     expect(wrapper.vm.isUpdate).toBeFalsy();
   });
 

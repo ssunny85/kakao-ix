@@ -39,9 +39,10 @@ describe('TodoCreate.vue', () => {
     // when
     wrapper.vm.handleAddItem();
     await wrapper.vm.$nextTick();
+    const result = wrapper.emitted()['refresh-todo'][0];
 
     // then
-    expect(wrapper.emitted()['refresh-todo'][0]).toEqual([]);
+    expect(result).toEqual([]);
     expect(wrapper.vm.content).toBe('');
   });
 });

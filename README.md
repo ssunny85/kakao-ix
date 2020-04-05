@@ -2,42 +2,48 @@
 
 ## Project 구동
 
-Backend, Frontend 서버 구동후 Front 개발서버로 접속하여 과제 확인 가능합니다.
+Backend, Frontend 서버 구동후 Front 개발서버로 접속하여 과제 확인 가능합니다. (OSX 기준 설명입니다.)
+
+### yarn install
+```shell script
+$ brew install yarn
+```
 
 ### Mongodb install
 
 ```shell script
 $ brew tap mongodb/brew
 $ brew install mongodb-community
+$ brew services start mongodb-community
 ```
 
 ### Backend 구동
 
 ```shell script
 $ cd backend
-$ npm install
-$ npm run serve
+$ yarn install
+$ yarn serve
 ```
 
-### Front Vue 구동
+### Frontend Vue 구동
 
 ```shell script
 $ cd todo-vue
-$ npm install
-$ npm run serve
+$ yarn install
+$ yarn serve
 ```
 
-### Front React 구동
+### Frontend React 구동
 
 ```shell script
 $ cd todo-react
-$ npm install
-$ npm run serve
+$ yarn install
+$ yarn serve
 ```
 
-### Front 단위테스트
+### Frontend 단위테스트
 
 ```shell script
 $ cd todo-vue
-$ npm run test:unit
+$ yarn test:unit
 ```
