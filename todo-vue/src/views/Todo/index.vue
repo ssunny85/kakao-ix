@@ -8,20 +8,19 @@
           :condition="condition"
           @search-todo="searchTodo">
         </todo-search>
-        <ul>
+        <ul class="todo__list">
           <li v-if="todos.length === 0" class="no-data">
             데이터가 없습니다.
           </li>
-          <li v-else>
-            <template v-for="todo in todos">
+          <template v-else>
+            <li class="todo__list__item" v-for="todo in todos" :key="todo.id">
               <todo-item
                 :todo="todo"
-                :key="todo.id"
                 @refresh-todo="refreshTodo"
                 @update-todo="updateTodo">
               </todo-item>
-            </template>
-          </li>
+            </li>
+          </template>
         </ul>
         <todo-pagination
           :paging="paging"
