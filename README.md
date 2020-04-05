@@ -4,12 +4,12 @@
 
 Backend, Frontend 서버 구동후 Front 개발서버로 접속하여 과제 확인 가능합니다. (OSX 기준 설명입니다.)
 
-** 참고 **
+**참고**
 > Frontend 과제 제출은 Vue.js 프레임워크를 사용한 `todo-vue` 폴더에서 확인 부탁드립니다.
 >
 > `todo-react`는 react 학습용으로 진행중입니다. 단순 참고만 부탁드립니다. 
 
-### yarn install
+### Yarn install
 ```shell script
 $ brew install yarn
 ```
